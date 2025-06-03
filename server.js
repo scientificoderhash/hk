@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 let data = [];
-let localUrl = 'http://localhost:3000/';
+let localUrl = 'https://hk-azfn.onrender.com/';
 
 app.post('/shorten', (req,res) => {
 
