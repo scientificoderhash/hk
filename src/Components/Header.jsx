@@ -1,6 +1,16 @@
-import { Link} from 'lucide-react'
+import { Link } from 'lucide-react'
+import React, { useEffect, useState } from 'react';
 
 function Header() {
+  const [stats, setStats] = useState({ urlShortenedCount: 0, requestCount: 0 });
+
+  useEffect(() => {
+    fetch('https://hk-azfn.onrender.com/stats')
+      .then(res => res.json())
+      .then(data => setStats(data))
+      .catch(() => setStats({ urlShortenedCount: 0, requestCount: 0 }));
+  }, []);
+
   return (
     <header className="bg-white shadow-sm border-b">
       <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
@@ -12,10 +22,10 @@ function Header() {
         </div>
         <nav className="hidden md:flex items-center gap-6">
           <a href="#features" className="text-gray-600 hover:text-blue-600 transition-colors">Features</a>
-          <a href="#about" className="text-gray-600 hover:text-blue-600 transition-colors">About</a>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
-            Sign Up
-          </button>
+          <p className="text-gray-600 hover:text-blue-600 transition-colors">No. of req: {stats.requestCount}</p>
+          <p className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
+            URL Shortened: {stats.urlShortenedCount}
+          </p>
         </nav>
       </div>
     </header>
